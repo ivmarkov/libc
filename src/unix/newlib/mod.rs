@@ -35,14 +35,14 @@ s! {
 
         #[cfg(not(all(libc_cfg_target_vendor, target_arch = "powerpc",
               target_vendor = "nintendo")))]
-        #[cfg(target_arch = "xtensa")]
+        #[cfg(any(target_arch = "xtensa", target_arch = "riscv32"))]
         pub ai_addr: *mut sockaddr,
 
         pub ai_canonname: *mut ::c_char,
 
         #[cfg(not(all(libc_cfg_target_vendor, target_arch = "powerpc",
               target_vendor = "nintendo")))]
-        #[cfg(not(target_arch = "xtensa"))]
+        #[cfg(not(all(target_arch = "xtensa", target_arch = "riscv32")))]
         pub ai_addr: *mut sockaddr,
 
         pub ai_next: *mut addrinfo,
@@ -694,7 +694,7 @@ cfg_if! {
     } else if #[cfg(target_arch = "aarch64")] {
         mod aarch64;
         pub use self::aarch64::*;
-    } else if #[cfg(target_arch = "xtensa")] {
+    } else if #[cfg(any(target_arch = "xtensa", target_arch = "riscv32"))] {
         mod xtensa;
         pub use self::xtensa::*;
     } else if #[cfg(target_arch = "powerpc")] {
