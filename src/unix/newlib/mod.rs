@@ -42,8 +42,8 @@ s! {
 
         #[cfg(not(all(libc_cfg_target_vendor, target_arch = "powerpc",
               target_vendor = "nintendo")))]
-        #[cfg(not(all(target_arch = "xtensa", target_arch = "riscv32")))]        
-	pub ai_addr: *mut sockaddr,
+        #[cfg(not(any(target_arch = "xtensa", target_arch = "riscv32")))]
+	    pub ai_addr: *mut sockaddr,
 
         pub ai_next: *mut addrinfo,
     }
