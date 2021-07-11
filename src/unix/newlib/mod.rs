@@ -33,17 +33,16 @@ s! {
         pub ai_protocol: ::c_int,
         pub ai_addrlen: socklen_t,
 
-        #[cfg(not(all(libc_cfg_target_vendor, target_arch = "powerpc",
-              target_vendor = "nintendo")))]
         #[cfg(any(target_arch = "xtensa", target_arch = "riscv32"))]
         pub ai_addr: *mut sockaddr,
 
         pub ai_canonname: *mut ::c_char,
 
-        #[cfg(not(all(libc_cfg_target_vendor, target_arch = "powerpc",
-              target_vendor = "nintendo")))]
-        #[cfg(not(any(target_arch = "xtensa", target_arch = "riscv32")))]
-	    pub ai_addr: *mut sockaddr,
+        #[cfg(not(any(
+            target_arch = "xtensa",
+            target_arch = "riscv32",
+            all(libc_cfg_target_vendor, target_arch = "powerpc", target_vendor = "nintendo"))))]
+        pub ai_addr: *mut sockaddr,
 
         pub ai_next: *mut addrinfo,
     }
